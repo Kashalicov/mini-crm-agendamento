@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Início - Mini CRM{% endblock %}
+{% block content %}
+<h1 class="mb-4">Painel</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Clientes cadastrados</h5>
+                <p class="display-6">{{ total_clientes }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="h4 mt-4">Próximos agendamentos</h2>
+{% if proximos %}
+<ul class="list-group">
+    {% for a in proximos %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span><strong>{{ a.titulo }}</strong> — {{ a.cliente.nome }}</span>
+        <span class="badge bg-secondary">{{ a.data_hora.strftime('%d/%m/%Y %H:%M') }}</span>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-muted">Nenhum agendamento futuro.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if cliente else 'Novo' }} Cliente{% endblock %}
+{% block content %}
+<h1>{{ 'Editar' if cliente else 'Novo' }} Cliente</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Nome *</label>
+        <input type="text" name="nome" class="form-control" required value="{{ cliente.nome if cliente else '' }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        <input type="email" name="email" class="form-control" value="{{ cliente.email if cliente else '' }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Telefone</label>
+        <input type="text" name="telefone" class="form-control" value="{{ cliente.telefone if cliente else '' }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Observações</label>
+        <textarea name="observacoes" class="form-control" rows="3">{{ cliente.observacoes if cliente else '' }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{{ url_for('listar_clientes') }}" class="btn btn-link">Cancelar</a>
+</form>
+{% endblock %}
