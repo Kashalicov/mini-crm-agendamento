@@ -7,6 +7,7 @@ compromissos com eles (ex: reuniões, atendimentos, consultas).
 Autor: Júnior Rodrigues
 """
 
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -16,7 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 BASE_DIR = Path(__file__).resolve().parent
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "dev-secret-key-troque-em-producao"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key-troque-em-producao")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{BASE_DIR / 'crm.db'}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
