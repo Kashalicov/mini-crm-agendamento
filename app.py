@@ -177,6 +177,7 @@ def criar_banco():
         db.create_all()
 
 
+criar_banco()
+
 if __name__ == "__main__":
-    criar_banco()
     app.run(debug=True)
