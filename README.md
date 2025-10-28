@@ -7,9 +7,7 @@
 ![flask](https://img.shields.io/badge/flask-3.0-black)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 
-## 🖼️ Capa
-
-![capa do projeto](./docs/cover.png)
+> 🌱 Projeto de aprendizado, feito enquanto eu estudava Flask e desenvolvimento web com banco de dados.
 
 ## 🔗 Links
 
@@ -30,12 +28,6 @@ Pequenas empresas e profissionais autônomos costumam controlar clientes e agend
 - Mensagens de feedback (flash messages) para todas as ações
 - Interface responsiva com Bootstrap 5
 - Testes de integração cobrindo as principais rotas
-
-## 🖥️ Prints
-
-| Painel | Clientes | Agendamentos |
-|---|---|---|
-| ![painel](./docs/screenshot1.png) | ![clientes](./docs/screenshot2.png) | ![agendamentos](./docs/screenshot3.png) |
 
 ## 🛠️ Tecnologias
 
