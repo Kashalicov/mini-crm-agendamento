@@ -14,7 +14,6 @@
 ## 🔗 Links
 
 - 🚀 **Deploy:** [mini-crm-agendamento.onrender.com](https://mini-crm-agendamento.onrender.com)
-- 🎥 **Vídeo demo:** [link aqui](#)
 
 > ⚠️ Hospedado no plano gratuito do Render — a instância "dorme" após um tempo sem uso. A primeira requisição após a inatividade pode levar até ~50 segundos para responder.
 
