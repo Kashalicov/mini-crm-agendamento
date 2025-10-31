@@ -5,7 +5,7 @@
 ![status](https://img.shields.io/badge/status-conclu%C3%ADdo-brightgreen)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![flask](https://img.shields.io/badge/flask-3.0-black)
-![license](https://img.shields.io/badge/license-MIT-blue)
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 > 🌱 Projeto de aprendizado, feito enquanto eu estudava Flask e desenvolvimento web com banco de dados.
 
