@@ -29,6 +29,12 @@ Pequenas empresas e profissionais autônomos costumam controlar clientes e agend
 - Interface responsiva com Bootstrap 5
 - Testes de integração cobrindo as principais rotas
 
+## 🖥️ Prints
+
+| Painel | Clientes | Agendamentos |
+|---|---|---|
+| ![painel](./docs/painel.png) | ![clientes](./docs/clientes.png) | ![agendamentos](./docs/agendamentos.png) |
+
 ## 🛠️ Tecnologias
 
 - Python 3.10+ / Flask 3
