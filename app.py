@@ -172,9 +172,31 @@ def excluir_agendamento(agendamento_id):
     return redirect(url_for("listar_agendamentos"))
 
 
+def seed_dados_exemplo():
+    if Cliente.query.count() > 0:
+        return
+
+    clientes = [
+        Cliente(nome="Ana Beatriz Souza", email="ana.souza@example.com", telefone="(11) 98765-4321"),
+        Cliente(nome="Carlos Eduardo Lima", email="carlos.lima@example.com", telefone="(21) 99888-7766"),
+        Cliente(nome="Fernanda Costa", email="fernanda.costa@example.com", telefone="(31) 97777-1122"),
+    ]
+    db.session.add_all(clientes)
+    db.session.commit()
+
+    agendamentos = [
+        Agendamento(cliente_id=clientes[0].id, titulo="Reunião de alinhamento", data_hora=datetime(2026, 8, 5, 14, 0)),
+        Agendamento(cliente_id=clientes[1].id, titulo="Consulta inicial", data_hora=datetime(2026, 8, 7, 9, 30)),
+        Agendamento(cliente_id=clientes[2].id, titulo="Follow-up de proposta", data_hora=datetime(2026, 8, 10, 16, 0)),
+    ]
+    db.session.add_all(agendamentos)
+    db.session.commit()
+
+
 def criar_banco():
     with app.app_context():
         db.create_all()
+        seed_dados_exemplo()
 
 
 criar_banco()

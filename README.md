@@ -13,7 +13,7 @@
 
 - 🚀 **Deploy:** [mini-crm-agendamento.onrender.com](https://mini-crm-agendamento.onrender.com)
 
-> ⚠️ Hospedado no plano gratuito do Render — a instância "dorme" após um tempo sem uso. A primeira requisição após a inatividade pode levar até ~50 segundos para responder.
+> ⚠️ Hospedado no plano gratuito do Render. Um workflow no GitHub Actions faz um ping a cada 10 min para manter a instância acordada, mas a primeira requisição ainda pode ocasionalmente levar alguns segundos a mais para responder.
 
 ## 🧠 Sobre o projeto
 
