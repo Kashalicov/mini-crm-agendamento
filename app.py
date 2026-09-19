@@ -8,18 +8,43 @@ Autor: Júnior Rodrigues
 """
 
 import os
-from datetime import datetime
+import secrets
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 
 BASE_DIR = Path(__file__).resolve().parent
 
+
+def _url_do_banco():
+    """PostgreSQL em produção (DATABASE_URL); SQLite local quando não definido."""
+    url = os.environ.get("DATABASE_URL")
+    if not url:
+        return f"sqlite:///{BASE_DIR / 'crm.db'}"
+    # Provedores costumam entregar "postgres://..."; o SQLAlchemy precisa do driver explícito.
+    for prefixo in ("postgres://", "postgresql://"):
+        if url.startswith(prefixo):
+            return "postgresql+psycopg://" + url[len(prefixo):]
+    return url
+
+
+# Schema próprio num Postgres compartilhado com outros projetos (opcional).
+DB_SCHEMA = os.environ.get("DB_SCHEMA")
+
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key-troque-em-producao")
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{BASE_DIR / 'crm.db'}"
+# Sem SECRET_KEY, gera uma aleatória em vez de usar um valor fixo do código
+# (que permitiria forjar o cookie de sessão). Reiniciar só perde mensagens flash.
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
+app.config["SQLALCHEMY_DATABASE_URI"] = _url_do_banco()
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgresql"):
+    opcoes = {"pool_pre_ping": True}
+    if DB_SCHEMA:
+        opcoes["connect_args"] = {"options": f"-csearch_path={DB_SCHEMA}"}
+    app.config["SQLALCHEMY_ENGINE_OPTIONS"] = opcoes
 
 db = SQLAlchemy(app)
 
@@ -184,10 +209,12 @@ def seed_dados_exemplo():
     db.session.add_all(clientes)
     db.session.commit()
 
+    # Datas relativas a hoje, para a demo sempre mostrar compromissos futuros.
+    hoje = datetime.now().replace(minute=0, second=0, microsecond=0)
     agendamentos = [
-        Agendamento(cliente_id=clientes[0].id, titulo="Reunião de alinhamento", data_hora=datetime(2026, 8, 5, 14, 0)),
-        Agendamento(cliente_id=clientes[1].id, titulo="Consulta inicial", data_hora=datetime(2026, 8, 7, 9, 30)),
-        Agendamento(cliente_id=clientes[2].id, titulo="Follow-up de proposta", data_hora=datetime(2026, 8, 10, 16, 0)),
+        Agendamento(cliente_id=clientes[0].id, titulo="Reunião de alinhamento", data_hora=(hoje + timedelta(days=2)).replace(hour=14)),
+        Agendamento(cliente_id=clientes[1].id, titulo="Consulta inicial", data_hora=(hoje + timedelta(days=4)).replace(hour=9, minute=30)),
+        Agendamento(cliente_id=clientes[2].id, titulo="Follow-up de proposta", data_hora=(hoje + timedelta(days=7)).replace(hour=16)),
     ]
     db.session.add_all(agendamentos)
     db.session.commit()
@@ -195,6 +222,9 @@ def seed_dados_exemplo():
 
 def criar_banco():
     with app.app_context():
+        if DB_SCHEMA and db.engine.dialect.name == "postgresql":
+            with db.engine.begin() as conn:
+                conn.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{DB_SCHEMA}"'))
         db.create_all()
         seed_dados_exemplo()
 

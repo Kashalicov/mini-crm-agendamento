@@ -11,9 +11,9 @@
 
 ## 🔗 Links
 
-- 🚀 **Deploy:** [mini-crm-agendamento.onrender.com](https://mini-crm-agendamento.onrender.com)
+- 🚀 **Deploy:** [mini-crm.shardweb.app](https://mini-crm.shardweb.app)
 
-> ⚠️ Hospedado no plano gratuito do Render. Um workflow no GitHub Actions faz um ping a cada 10 min para manter a instância acordada, mas a primeira requisição ainda pode ocasionalmente levar alguns segundos a mais para responder.
+> Hospedado na Shard Cloud, sempre ativo (sem cold start), com PostgreSQL em produção.
 
 ## 🧠 Sobre o projeto
 
@@ -38,7 +38,7 @@ Pequenas empresas e profissionais autônomos costumam controlar clientes e agend
 ## 🛠️ Tecnologias
 
 - Python 3.10+ / Flask 3
-- Flask-SQLAlchemy (ORM) + SQLite
+- Flask-SQLAlchemy (ORM) + SQLite (local) / PostgreSQL (produção)
 - Jinja2 (templates)
 - Bootstrap 5 (via CDN)
 - pytest para testes de integração
@@ -72,7 +72,7 @@ python app.py
 # acesse http://127.0.0.1:5000
 ```
 
-O banco SQLite (`crm.db`) é criado automaticamente na primeira execução.
+O banco SQLite (`crm.db`) é criado automaticamente na primeira execução. Em produção, defina `DATABASE_URL` (PostgreSQL) e, opcionalmente, `DB_SCHEMA` para usar um schema próprio num banco compartilhado.
 
 ## ✅ Testes
 
