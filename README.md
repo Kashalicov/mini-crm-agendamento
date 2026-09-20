@@ -11,9 +11,9 @@
 
 ## 🔗 Links
 
-- 🚀 **Deploy:** [mini-crm.shardweb.app](https://mini-crm.shardweb.app)
+- 🚀 **Deploy:** [mini-crm-agendamento.onrender.com](https://mini-crm-agendamento.onrender.com)
 
-> Hospedado na Shard Cloud, sempre ativo (sem cold start), com PostgreSQL em produção.
+> ⚠️ Hospedado no plano gratuito do Render. Um workflow no GitHub Actions faz um ping a cada 10 min para manter a instância acordada, mas a primeira requisição ainda pode ocasionalmente levar alguns segundos a mais para responder.
 
 ## 🧠 Sobre o projeto
 
